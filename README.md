@@ -1,29 +1,30 @@
 # 🔥 BrisketSentinel — AI-Powered Grill Monitoring App
 
-Real-time smoke intelligence for brisket perfection.  
+Real-time smoke intelligence for brisket perfection.
 Built with **RShiny**, **PowerShell**, and a future-ready cloud/API strategy.
 
 ---
 
-## 📑 Table of Contents
+## 📁 Table of Contents
 
-- [🚀 Summary](#-summary)
-- [📦 Tech Stack & Installed Packages](#-tech-stack--installed-packages)
-- [🧠 Architecture Diagram](#-architecture-diagram)
-- [💻 PowerShell Code (with & without API)](#-powershell-code-with--without-api)
-- [📊 R Code (with & without API)](#-r-code-with--without-api)
-- [🌐 Free Cloud/API Integration Options](#-free-cloudapi-integration-options)
-- [🔎 Why This Matters](#-why-this-matters)
-- [🧩 Conclusion](#-conclusion)
+* [🚀 Summary](#-summary)
+* [📦 Tech Stack & Installed Packages](#-tech-stack--installed-packages)
+* [🧠 Architecture Diagram](#-architecture-diagram)
+* [💻 PowerShell Code (with & without API)](#-powershell-code-with--without-api)
+* [📊 R Code (with & without API)](#-r-code-with--without-api)
+* [🌐 Free Cloud/API Integration Options](#-free-cloudapi-integration-options)
+* [🔎 Why This Matters](#-why-this-matters)
+* [🧹 Conclusion](#-conclusion)
 
 ---
 
 ## 🚀 Summary
 
 **BrisketSentinel** is a modular, cloud-adaptable grilling analytics tool designed for:
-- **Solutions Architects** seeking IoT-to-Cloud integrations
-- **Data Engineers** handling real-time telemetry
-- **Non-technical users** needing easy-to-read cooking alerts
+
+* **Solutions Architects** seeking IoT-to-Cloud integrations
+* **Data Engineers** handling real-time telemetry
+* **Non-technical users** needing easy-to-read cooking alerts
 
 This app simulates and monitors brisket temperature, carcinogenic compound buildup (HCAs & PAHs), and smoke/fat drip dynamics using live or fallback JSON logs. Designed with scalability in mind, BrisketSentinel is API-friendly, dashboarded in RShiny, and ready for deployment via Docker or cloud edge devices.
 
@@ -31,17 +32,17 @@ This app simulates and monitors brisket temperature, carcinogenic compound build
 
 ## 📦 Tech Stack & Installed Packages
 
-| Tool / Package | Description |
-|----------------|-------------|
-| ![RStudio](https://img.shields.io/badge/RStudio-IDE-blue?logo=rstudio) | App host + R dashboard engine |
-| ![Shiny](https://img.shields.io/badge/Shiny-Dashboard-orange?logo=r) | UI and interactivity |
-| ![PowerShell](https://img.shields.io/badge/PowerShell-System%20Telemetry-282C34?logo=powershell) | Log collector |
-| ![ggplot2](https://img.shields.io/badge/ggplot2-Graphing-green?logo=r) | Chart rendering |
-| ![jsonlite](https://img.shields.io/badge/jsonlite-JSON%20Parser-lightgrey?logo=json) | JSON ingestion |
-| ![lubridate](https://img.shields.io/badge/lubridate-Time%20Parsing-cyan?logo=r) | Timestamp handling |
-| ![dplyr](https://img.shields.io/badge/dplyr-Data%20Wrangling-blueviolet?logo=r) | Reactive data prep |
-| ![DT](https://img.shields.io/badge/DT-Interactive%20Tables-yellow?logo=table) | DataTables integration |
-| ![scales](https://img.shields.io/badge/scales-Finishing%20Touches-orange?logo=r) | Y-axis formatting |
+| Tool / Package                                                                                   | Description                   |
+| ------------------------------------------------------------------------------------------------ | ----------------------------- |
+| ![RStudio](https://img.shields.io/badge/RStudio-IDE-blue?logo=rstudio)                           | App host + R dashboard engine |
+| ![Shiny](https://img.shields.io/badge/Shiny-Dashboard-orange?logo=r)                             | UI and interactivity          |
+| ![PowerShell](https://img.shields.io/badge/PowerShell-System%20Telemetry-282C34?logo=powershell) | Log collector                 |
+| ![ggplot2](https://img.shields.io/badge/ggplot2-Graphing-green?logo=r)                           | Chart rendering               |
+| ![jsonlite](https://img.shields.io/badge/jsonlite-JSON%20Parser-lightgrey?logo=json)             | JSON ingestion                |
+| ![lubridate](https://img.shields.io/badge/lubridate-Time%20Parsing-cyan?logo=r)                  | Timestamp handling            |
+| ![dplyr](https://img.shields.io/badge/dplyr-Data%20Wrangling-blueviolet?logo=r)                  | Reactive data prep            |
+| ![DT](https://img.shields.io/badge/DT-Interactive%20Tables-yellow?logo=table)                    | DataTables integration        |
+| ![scales](https://img.shields.io/badge/scales-Finishing%20Touches-orange?logo=r)                 | Y-axis formatting             |
 
 ---
 
@@ -49,26 +50,18 @@ This app simulates and monitors brisket temperature, carcinogenic compound build
 
 ```mermaid
 flowchart TD
-  subgraph Local Device
-    A[PowerShell Log Generator] --> B[JSON Log File]
-  end
+  A[PowerShell Log Generator (Local)] --> B[JSON Log File]
+  B --> C[read_log() in RShiny]
+  C --> D[Reactive Analysis]
+  D --> E1[Trend Plot Output]
+  D --> E2[Threshold Alert Logic]
+  D --> E3[Downloadable Table]
+  D --> E4[Optional API Output]
+  E4 --> F[Remote Storage (e.g., S3, Firebase, Glitch)]
+  F --> G[Remote UI or Cloud Edge Device]
+```
 
-  subgraph RShiny App
-    B --> C[read_log()]
-    C --> D[Reactive Analysis]
-    D --> E1[Trend Plots]
-    D --> E2[Threshold Alerts]
-    D --> E3[Downloadable Table]
-    D --> E4[API Ready Output]
-  end
-
-  subgraph Optional Cloud
-    F[Free API or S3 Bucket]
-    E4 --> F
-    F --> G[Remote UI or Edge Display]
-  end
-
-
+---
 
 ## 💻 PowerShell Code (With & Without API)
 
@@ -122,7 +115,7 @@ data <- reactive({
   httr::GET("https://your-api.com/logs") %>%
     httr::content("text") %>%
     fromJSON() %>%
-    mutate(...)
+    mutate(...)  # same logic
 })
 ```
 
@@ -155,7 +148,7 @@ Whether you’re an R developer, cloud architect, pitmaster, or public health st
 
 ---
 
-## 🧩 Conclusion
+## 🧹 Conclusion
 
 This repository is designed for:
 
@@ -171,15 +164,3 @@ Feel free to fork, modify, or deploy!
 
 **Repo**: [`brisketsentinel-cloud-ai`](https://github.com/your-username/brisketsentinel-cloud-ai)
 **Maintainer**: [@emcdo411](https://github.com/emcdo411)
-
-```
-
----
-
-### ✅ Next Steps:
-- Replace `"https://your-api.com/logs"` with a real endpoint if desired.
-- Save as `README.md` in your repo folder.
-- If you want badge links to render as icons inside GitHub, ensure the repo is public and Markdown is enabled (which it is by default).
-
-Would you like help pushing this into your local GitHub repo or converting this into a GitHub Pages portfolio page?
-```
