@@ -49,6 +49,7 @@ This app simulates and monitors brisket temperature, carcinogenic compound build
 ## 🧠 Architecture Diagram
 
 ```mermaid
+
 flowchart TD
   A[PowerShell Log Generator (Local)] --> B[JSON Log File]
   B --> C[read_log() in RShiny]
